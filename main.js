@@ -25,8 +25,7 @@ function createElement(tag, className) {
     const $tag = document.createElement(tag);
     if (className) {
         $tag.classList.add(className);
-    }    
-
+    }  
     return $tag;
 }
 
@@ -58,12 +57,14 @@ function changeHP(player) {
     player.hp -= Math.floor(Math.random()*20);
     $playerLife.style.width = player.hp + '%';
     console.log (player.name +' '+ player.hp +'%');
-   
-     if (player.hp < 0) {
-        //player.hp = (player.hp > damage) ? player.hp - damage : 0
-              $arenas.appendChild(playerLose(player.name));
-            }
-}
+    
+    if (player.hp <= 0) {
+        
+             $randomButton.disabled = true;
+                $arenas.appendChild(playerLose(player.name));
+                $playerLife.style.width = (player.hp = 0) + '%'
+            }      
+};
 
 function playerLose(name) {
     const $loseTitle = createElement('div', 'loseTitle');
@@ -81,68 +82,3 @@ $randomButton.addEventListener('click', function() {
 $arenas.appendChild(createPlayer(player1)); 
 $arenas.appendChild(createPlayer(player2)); 
 
-
-/* old 2 code
-function createPlayer(classPlayer, playerObj) {
-    const $player = document.createElement('div');
-    const $progressbar = document.createElement('div');
-    const $character = document.createElement('div');
-    const $life = document.createElement('div');
-    const $name = document.createElement('div')
-    const $img = document.createElement('img');
-
-    $player.classList.add(classPlayer);
-    $progressbar.classList.add('progressbar');
-    $character.classList.add('character');
-    $life.classList.add('life');
-    $name.classList.add('name');
-
-    $life.style.width = playerObj.hp +'%';
-    $name.innerText = playerObj.name;
-    $img.src = playerObj.img;
-
-    $progressbar.appendChild($name);
-    $progressbar.appendChild($life);
-
-    $character.appendChild($img);
-
-    $player.appendChild($progressbar);
-    $player.appendChild($character);
-
-    $arenas.appendChild($player);    
-}
-
-createPlayer('player1', player1);
-createPlayer('player2', player2); */
-
-    /* oldest 1 version of code
-
-    arenas.appendChild(div1);
-
-    const div1 = document.createElement("div");
-    div1.classList.add(player);
-
-    div2 = document.createElement('div');
-    div2.classList.add("progressbar");
-
-    const life = document.createElement('div');
-    life.classList.add("life");
-    life.style.width = player.hp + "%";
-
-    const name = document.createElement("div");
-    name.classList.add("name");
-    name.innerText = namePlayer.name;
-
-    div3 = document.createElement("div");
-    div3.classList.add("character");
-
-    const img = document.createElement("img");
-    img.src = namePlayer.img
-
-    div2.appendChild(life);
-    div2.appendChild(name);
-    div3.appendChild(img);
-    div1.appendChild(div2);
-    div1.appendChild(div3);
-
-   */
