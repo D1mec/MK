@@ -1,7 +1,6 @@
 const $arenas = document.querySelector('.arenas');
 const $randomButton = document.querySelector('.button');
 
-
 const player1 = {
     player: 1,
     name: 'Sonya Blade ',
@@ -15,6 +14,8 @@ const player1 = {
   elHP: elHP,
 }
 
+player1.attack();
+
 const player2 = {
     player: 2,
     name: 'Kitana Kitana ',
@@ -27,6 +28,7 @@ const player2 = {
   renderHP: renderHP,
   elHP: elHP,
 }
+player2.attack();
 
 function createElement(tag, className) {
     const $tag = document.createElement(tag);
@@ -60,7 +62,7 @@ function createPlayer(playerObj) {
 }
 
 function mathRandom() {
-  let damage = Math.floor(Math.random()*20);
+  const damage = Math.floor(Math.random()*20);
   return damage;
 }
 
@@ -75,27 +77,19 @@ function renderHP() {
 
 function changeHP () {
       if (this.hp >= 0) {
-        this.hp -= mathRandom;
-      }
-      if (this.hp < 0) {
-        this.hp = 0;
+          this.hp = 0;
       }
     };
 
 function createReloadButton() {
-  const $reloadWrap = document.createElement('div');
-  $reloadWrap.classList.add('reloadWrap');
-  $control.appendChild($reloadWrap);
+  const $reloadWrap = createElement('div', 'reloadWrap');
+  const $reloadButton = createElement( 'button', 'button');
+  $reloadButton.innerText = 'Restart';
+  $reloadWrap.appendChild($reloadButton);
 
-  const $createReloadButton = document.createElement('button');
-  $createReloadButton.classList.add('button');
-  $createReloadButton.innerText = 'Restart';
-  $reloadWrap.appendChild($createReloadButton);
+  return $reloadWrap;
+  }
 
-  $createReloadButton.addEventListener('click', function() {
-    window.location.reload();
-  })
-}
 
 
 
@@ -106,7 +100,6 @@ function playerWins(name){
   } else if (player1.hp === 0 && player2.hp === 0) {
     $loseTitle.innerText = 'Draw';
   }
-
   return $loseTitle;
 }
 
@@ -118,10 +111,9 @@ $randomButton.addEventListener('click', function() {
 
   if (player1.hp === 0 || player2.hp === 0) {
     createReloadButton();
-  }
-  if (player1.hp === 0 || player2.hp === 0) {
     $randomButton.disabled = true;
   }
+
   if (player1.hp === 0 && player1.hp < player2.hp) {
     $arenas.appendChild(playerWins(player2.name));
   } else if (player2.hp === 0 && player2.hp < player1.hp) {
