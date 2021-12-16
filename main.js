@@ -1,34 +1,54 @@
 const $arenas = document.querySelector('.arenas');
 const $randomButton = document.querySelector('.button');
+const $formDiv = document.querySelector('.control');
+
+const HIT = {
+  head: 30,
+  body: 25,
+  foot: 20,
+}
+
+const ATTACK = ['head', 'body', 'foot'];
 
 const player1 = {
-    player: 1,
-    name: 'Sonya Blade ',
-    hp: 100,
-    img: 'http://reactmarathon-api.herokuapp.com/assets/sonya.gif',
-    attack: function(name) {
-        console.log(name + ' ' + "Fight...");
-    },
-  changeHP: changeHP,
-  renderHP: renderHP,
-  elHP: elHP,
+  player: 1,
+  name: 'Sonya Blade ',
+  hp: 100,
+  img: 'http://reactmarathon-api.herokuapp.com/assets/sonya.gif',
+  weapon: ['leg', 'hand', 'fist'],
+  attack,
+  changeHP,
+  renderHp,
+  elHP,
 }
 
 player1.attack();
 
 const player2 = {
-    player: 2,
-    name: 'Kitana Kitana ',
-    hp: 100,
-    img: 'http://reactmarathon-api.herokuapp.com/assets/kitana.gif',
-    attack: function(name) {
-        console.log(name + ' ' + "Fight...");
-    },
-  changeHP: changeHP,
-  renderHP: renderHP,
-  elHP: elHP,
-}
+  player: 2,
+  name: 'Kitana Kitana ',
+  hp: 100,
+  img: 'http://reactmarathon-api.herokuapp.com/assets/kitana.gif',
+  weapon: ['leg', 'hand', 'fist'],
+  attack,
+  changeHP,
+  renderHp,
+  elHP,
+  }
 player2.attack();
+
+const $ATTACK = ['head', 'body', 'foot'];
+
+function enemyAttack() {
+  const hit = ATTACK[mathRandom(0, 3)];
+  const defence = ATTACK[mathRandom(0, 3)];
+  console.log(this.name + ' Fight...')  
+  return {
+  value: mathRandom(0, HIT[hit]),
+  hit,
+  defence,
+     }
+  }
 
 function createElement(tag, className) {
     const $tag = document.createElement(tag);
@@ -75,8 +95,9 @@ function renderHP() {
   this.elHP().style.width = this.hp + '%';
   };
 
-function changeHP () {
-      if (this.hp >= 0) {
+function changeHP (damage) {
+  this.hp -= damage;
+      if (this.hp < 0) {
           this.hp = 0;
       }
     };
@@ -89,9 +110,6 @@ function createReloadButton() {
 
   return $reloadWrap;
   }
-
-
-
 
 function playerWins(name){
   const $loseTitle = createElement('div', 'loseTitle');
