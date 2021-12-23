@@ -1,5 +1,7 @@
-import  { player } from './player.js' ;
+import  { player1, player2, } from './player.js' ;
+//import { $arenas, $reloadButton, $formFight, $chat } from './query.js';
 console.log(player);
+
 const $arenas = document.querySelector('.arenas');
 const $reloadButton = document.querySelector('.button');
 const $formFight = document.querySelector('.control');
@@ -53,15 +55,15 @@ const LOGS = {
   draw: 'Ничья - это тоже победа!'
 };
 
-const NameMap = {
+/*const NameMap = {
 SCORPION: 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',
 KITANA: 'http://reactmarathon-api.herokuapp.com/assets/kitana.gif',
 SONYA: 'http://reactmarathon-api.herokuapp.com/assets/sonya.gif',
 SUBZERO: 'http://reactmarathon-api.herokuapp.com/assets/subzero.gif',
 LIUKANG: 'http://reactmarathon-api.herokuapp.com/assets/liukang.gif',
-};
+};*/
 
-const player1 = {
+/*const player1 = {
   player: 1,
   name: 'SONYA',
   hp: 100,
@@ -70,9 +72,9 @@ const player1 = {
   changeHP,
   renderHP,
   elHP,
-};
+};*/
 
-const player2 = {
+/*const player2 = {
   player: 2,
   name: 'KITANA',
   hp: 100,
@@ -81,7 +83,7 @@ const player2 = {
   changeHP,
   renderHP,
   elHP
-}
+}*/
 
  function attack() {
   console.log(player.name + ' ' + 'Fight...');  
