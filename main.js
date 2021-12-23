@@ -1,6 +1,9 @@
+import  { player } from './player.js' ;
+console.log(player);
 const $arenas = document.querySelector('.arenas');
-//const $randomButton = document.querySelector('.button');
+const $reloadButton = document.querySelector('.button');
 const $formFight = document.querySelector('.control');
+const $chat = document.querySelector('.chat');
 
 const HIT = {
   head: 30,
@@ -10,7 +13,7 @@ const HIT = {
 
 const ATTACK = ['head', 'body', 'foot'];
 
-const logs = {
+const LOGS = {
   start: 'Часы показывали [time], когда [player1] и [player2] бросили вызов друг другу.',
   end: [
       'Результат удара [playerWins]: [playerLose] - труп',
@@ -50,29 +53,35 @@ const logs = {
   draw: 'Ничья - это тоже победа!'
 };
 
+const NameMap = {
+SCORPION: 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',
+KITANA: 'http://reactmarathon-api.herokuapp.com/assets/kitana.gif',
+SONYA: 'http://reactmarathon-api.herokuapp.com/assets/sonya.gif',
+SUBZERO: 'http://reactmarathon-api.herokuapp.com/assets/subzero.gif',
+LIUKANG: 'http://reactmarathon-api.herokuapp.com/assets/liukang.gif',
+};
+
 const player1 = {
   player: 1,
-  name: 'Sonya Blade ',
+  name: 'SONYA',
   hp: 100,
-  img: 'http://reactmarathon-api.herokuapp.com/assets/sonya.gif',
+  img: NameMap ['SONYA'], //http://reactmarathon-api.herokuapp.com/assets/sonya.gif',
   weapon: ['leg', 'hand', 'fist'],
   changeHP,
   renderHP,
   elHP,
-  attack,
 };
 
 const player2 = {
   player: 2,
-  name: 'Kitana Kitana ',
+  name: 'KITANA',
   hp: 100,
-  img: 'http://reactmarathon-api.herokuapp.com/assets/kitana.gif',
+  img: NameMap ['KITANA'], //'http://reactmarathon-api.herokuapp.com/assets/kitana.gif',
   weapon: ['leg', 'hand', 'fist'],
   changeHP,
   renderHP,
-  elHP,
-  attack,
-  }
+  elHP
+}
 
  function attack() {
   console.log(player.name + ' ' + 'Fight...');  
@@ -95,7 +104,7 @@ function createReloadButton() {
   reloadButton.addEventListener('click', function(){
     window.location.reload();
   });
-  return $reloadWrap
+   return $reloadWrap
 }  
 
 function createPlayer(playerObj) {
@@ -133,9 +142,8 @@ function playerLose(name){
   return $loseTitle;
 }
 
-function getRandom(num) {
-  return Math.ceil(Math.random() * num) /* :20*/ ;
-}
+const getRandom = (num) => Math.ceil(Math.random() * num); // :20
+console.log(random(20));
 
 function changeHP(randomNumber) {
   this.hp -= randomNumber;
@@ -145,11 +153,11 @@ function changeHP(randomNumber) {
 };  
 
 function elHP () {
-  return $playerLife = document.querySelector('.player'+this.player+' .life');
+  return document.querySelector('.player'+this.player+' .life');
   };
 
 function renderHP() {
-  return this.elHP().style.width = this.hp + '%';
+  this.elHP().style.width = this.hp + '%';
   };
 
 function enemyAttack() {
@@ -187,18 +195,16 @@ function showResult() {
 
 if (player1.hp === 0 && player1.hp < player2.hp) {
     $arenas.appendChild(playerLose(player2.name));
+    generateLogs('end', player2, player1);
 } else if (player2.hp === 0 && player2.hp < player1.hp) {
-    $arenas.appendChild(playerLose(player1.name));
+      $arenas.appendChild(playerLose(player1.name));
+      enerateLogs('end', player1, player2);
 } else if (player2.hp === 0 && player2.hp === 0) {
     $arenas.appendChild(playerLose());
+    enerateLogs('draw');
 }
 }
 
-/*function generateLogs(type, player1, player2) {
-  const text = logs[type] [0].replace('[playerKick]', player1.name);
-  console.log(text);
-  
-}*/
 
 function generateLogs(type, player1, player2) {
   const date = new Date();
